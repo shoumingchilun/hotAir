@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chilun.hotAir.mapper.ExperimentAdjustRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.chilun.hotAir.model.entity.ExperimentAdjustRecord">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="experimentId" column="experiment_id" jdbcType="BIGINT"/>
+            <result property="oldValue" column="old_value" jdbcType="VARCHAR"/>
+            <result property="psoValue" column="pso_value" jdbcType="VARCHAR"/>
+            <result property="manualValue" column="manual_value" jdbcType="VARCHAR"/>
+            <result property="adjustTime" column="adjust_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,experiment_id,old_value,
+        pso_value,manual_value,adjust_time
+    </sql>
+</mapper>

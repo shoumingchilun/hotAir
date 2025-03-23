@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chilun.hotAir.mapper.ProductionDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.chilun.hotAir.model.entity.ProductionData">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="brand" column="brand" jdbcType="VARCHAR"/>
+            <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+            <result property="timestamp" column="timestamp" jdbcType="TIMESTAMP"/>
+            <result property="inletMoisture" column="inlet_moisture" jdbcType="DECIMAL"/>
+            <result property="outletMoisture" column="outlet_moisture" jdbcType="DECIMAL"/>
+            <result property="tobaccoFlow" column="tobacco_flow" jdbcType="DECIMAL"/>
+            <result property="dryHeadWeight" column="dry_head_weight" jdbcType="DECIMAL"/>
+            <result property="dryTailWeight" column="dry_tail_weight" jdbcType="DECIMAL"/>
+            <result property="steamPressure" column="steam_pressure" jdbcType="DECIMAL"/>
+            <result property="hotAirTemp" column="hot_air_temp" jdbcType="DECIMAL"/>
+            <result property="exhaustFanFreq" column="exhaust_fan_freq" jdbcType="DECIMAL"/>
+            <result property="circulationFanFreq" column="circulation_fan_freq" jdbcType="DECIMAL"/>
+            <result property="steamValveOpening" column="steam_valve_opening" jdbcType="DECIMAL"/>
+            <result property="outletMoistureFeedback" column="outlet_moisture_feedback" jdbcType="DECIMAL"/>
+            <result property="actualHotAirTemp" column="actual_hot_air_temp" jdbcType="DECIMAL"/>
+            <result property="exhaustOpeningActual" column="exhaust_opening_actual" jdbcType="DECIMAL"/>
+            <result property="envTemp" column="env_temp" jdbcType="DECIMAL"/>
+            <result property="envHumidity" column="env_humidity" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,brand,batch_number,
+        timestamp,inlet_moisture,outlet_moisture,
+        tobacco_flow,dry_head_weight,dry_tail_weight,
+        steam_pressure,hot_air_temp,exhaust_fan_freq,
+        circulation_fan_freq,steam_valve_opening,outlet_moisture_feedback,
+        actual_hot_air_temp,exhaust_opening_actual,env_temp,
+        env_humidity
+    </sql>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chilun.hotAir.mapper.ExperimentMapper">
+
+    <resultMap id="BaseResultMap" type="com.chilun.hotAir.model.entity.Experiment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="experimentName" column="experiment_name" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="info" column="info" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,experiment_name,state,
+        start_time,info
+    </sql>
+</mapper>
