@@ -7,7 +7,7 @@ package com.chilun.hotAir.constant;
  * @date 2025-03-22-9:41
  */
 public class TCNCommonConstant {
-    //预测入参时间序列长度
+    //预测出参所需的入参时间序列长度
     public static int SEQUENCE_LENGTH = 150;
 
     //预测出参时间序列长度

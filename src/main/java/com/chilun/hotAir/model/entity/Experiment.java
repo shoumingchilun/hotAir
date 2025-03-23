@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -35,7 +36,7 @@ public class Experiment implements Serializable {
     /**
      * 实验开始时间（现实时间）
      */
-    private Date startTime;
+    private LocalDateTime startTime;
 
     /**
      * 实验描述，存储额外信息，JSON格式

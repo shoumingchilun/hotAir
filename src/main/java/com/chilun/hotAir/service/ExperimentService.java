@@ -9,5 +9,4 @@ import com.chilun.hotAir.model.entity.Experiment;
 * @createDate 2025-03-23 13:48:56
 */
 public interface ExperimentService extends IService<Experiment> {
-
 }
