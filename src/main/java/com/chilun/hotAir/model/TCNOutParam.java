@@ -1,5 +1,7 @@
 package com.chilun.hotAir.model;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 
 /**
@@ -8,6 +10,7 @@ import java.math.BigDecimal;
  * @author 齿轮
  * @date 2025-03-22-9:40
  */
+@Data
 public class TCNOutParam {
     /**
      * 出口物料水份（%）

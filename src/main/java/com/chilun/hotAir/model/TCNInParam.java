@@ -1,5 +1,7 @@
 package com.chilun.hotAir.model;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
  * @author 齿轮
  * @date 2025-03-22-9:40
  */
+@Data
 public class TCNInParam {
     private String brand;
     private String batchNumber;

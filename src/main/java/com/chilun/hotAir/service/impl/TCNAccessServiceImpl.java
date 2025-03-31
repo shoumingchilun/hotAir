@@ -5,6 +5,7 @@ import com.chilun.hotAir.model.TCNOutParam;
 import com.chilun.hotAir.service.TCNAccessService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -16,7 +17,12 @@ import java.util.List;
 public class TCNAccessServiceImpl implements TCNAccessService {
     @Override
     public TCNOutParam getNextOutParameter(List<TCNInParam> inParamList) {
-        return null;
+        TCNOutParam param = new TCNOutParam();
+        param.setActualHotAirTemp(BigDecimal.valueOf(100));
+        param.setOutletMoisture(BigDecimal.valueOf(100));
+        param.setOutletMoistureFeedback(BigDecimal.valueOf(100));
+        param.setExhaustOpeningActual(BigDecimal.valueOf(100));
+        return param;
     }
 
     @Override

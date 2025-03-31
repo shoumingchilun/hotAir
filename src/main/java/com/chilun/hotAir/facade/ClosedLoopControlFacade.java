@@ -58,8 +58,8 @@ public class ClosedLoopControlFacade {
 
         //TODO: 此处可以优化为使用尾部数据填充指所需长度，也可以补充默认配置
         List<ExperimentData> experimentDataList = initParam.getSystemInitParam();
-        ThrowUtils.throwIf(CollectionUtils.isEmpty(experimentDataList) ||
-                experimentDataList.size() < TCNCommonConstant.SEQUENCE_LENGTH, PARAMS_ERROR, "模型预测入参异常");
+//        ThrowUtils.throwIf(CollectionUtils.isEmpty(experimentDataList) ||
+//                experimentDataList.size() < TCNCommonConstant.SEQUENCE_LENGTH, PARAMS_ERROR, "模型预测入参异常");
         experimentContext.setOldDataCache(new ArrayDeque<>(experimentDataList));
 
         Experiment experiment = new Experiment();
@@ -152,6 +152,7 @@ public class ClosedLoopControlFacade {
         if (Objects.isNull(oldCache)) {
             oldCache = context.getOldDataCache();
         }
+        context.setOldDataCache(oldCache);
         //填充manual
         if (Objects.isNull(manualParam)) {
             //manualParam为空说明使用pso参数，将context的manualCache设置为空
@@ -181,14 +182,14 @@ public class ClosedLoopControlFacade {
         record.setExperimentId(context.getExperimentId());
         record.setAdjustTime(context.getTime());
         record.setOldValue(JsonUtils.toJson(context.getOldDataCache().peekLast().getMachineAdjustableParam()));
-        if (Objects.nonNull(context.getPsoDataCache().peekLast())) {
+        if (!CollectionUtils.isEmpty(context.getPsoDataCache())) {
             record.setPsoValue(JsonUtils.toJson(context.getPsoDataCache().peekLast().getMachineAdjustableParam()));
         }
-        if (Objects.nonNull(context.getManualDataCache().peekLast())) {
+        if (!CollectionUtils.isEmpty(context.getManualDataCache())) {
             record.setManualValue(JsonUtils.toJson(context.getManualDataCache().peekLast().getMachineAdjustableParam()));
         }
         boolean saved = experimentAdjustRecordService.save(record);
-        ThrowUtils.throwIf(!saved,SYSTEM_ERROR, "保存实验参数的修改失败");
+        ThrowUtils.throwIf(!saved, SYSTEM_ERROR, "保存实验参数的修改失败");
     }
 
     //查询系统当前时间步下的参数信息，包含TCN出参
