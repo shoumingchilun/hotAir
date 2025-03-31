@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -41,7 +42,7 @@ public class ExperimentDataRecord implements Serializable {
     /**
      * 时间戳（时间序列中的时间戳）
      */
-    private Date dataTime;
+    private LocalTime dataTime;
 
     /**
      * 入口物料水份（%）

@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.chilun.hotAir.model.MachineAdjustableParam;
+import com.chilun.hotAir.model.TCNInParam;
+import com.chilun.hotAir.model.TCNOutParam;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,7 +16,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 实验数据记录表，存储实验的每次输入和输出数据
+ * TCN入参+出参
  *
  * @TableName experiment_data_record
  */
@@ -143,5 +147,35 @@ public class ExperimentData implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(brand, batchNumber, dataTime, inletMoisture, outletMoisture, tobaccoFlow, dryHeadWeight, dryTailWeight, steamPressure, hotAirTemp, exhaustFanFreq, circulationFanFreq, steamValveOpening, outletMoistureFeedback, actualHotAirTemp, exhaustOpeningActual, envTemp, envHumidity);
+    }
+
+    public void fill(TCNOutParam outParam) {
+        BeanUtils.copyProperties(outParam, this);
+    }
+
+    public void fill(TCNInParam inParam) {
+        BeanUtils.copyProperties(inParam, this);
+    }
+
+    public void fill(MachineAdjustableParam param) {
+        BeanUtils.copyProperties(param, this);
+    }
+
+    public TCNInParam getTcnInParam() {
+        TCNInParam inParam = new TCNInParam();
+        BeanUtils.copyProperties(this, inParam);
+        return inParam;
+    }
+
+    public TCNOutParam getTcnOutParam() {
+        TCNOutParam outParam = new TCNOutParam();
+        BeanUtils.copyProperties(this, outParam);
+        return outParam;
+    }
+
+    public MachineAdjustableParam getMachineAdjustableParam() {
+        MachineAdjustableParam param = new MachineAdjustableParam();
+        BeanUtils.copyProperties(this, param);
+        return param;
     }
 }

@@ -7,13 +7,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 实验参数调整记录表，记录实验过程中参数的变化情况
+ *
  * @TableName experiment_adjust_record
  */
-@TableName(value ="experiment_adjust_record")
+@TableName(value = "experiment_adjust_record")
 @Data
 public class ExperimentAdjustRecord implements Serializable {
     /**
@@ -45,7 +48,7 @@ public class ExperimentAdjustRecord implements Serializable {
     /**
      * 参数调整的时间戳（时间序列中的时间戳）
      */
-    private Date adjustTime;
+    private LocalTime adjustTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -63,11 +66,11 @@ public class ExperimentAdjustRecord implements Serializable {
         }
         ExperimentAdjustRecord other = (ExperimentAdjustRecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getExperimentId() == null ? other.getExperimentId() == null : this.getExperimentId().equals(other.getExperimentId()))
-            && (this.getOldValue() == null ? other.getOldValue() == null : this.getOldValue().equals(other.getOldValue()))
-            && (this.getPsoValue() == null ? other.getPsoValue() == null : this.getPsoValue().equals(other.getPsoValue()))
-            && (this.getManualValue() == null ? other.getManualValue() == null : this.getManualValue().equals(other.getManualValue()))
-            && (this.getAdjustTime() == null ? other.getAdjustTime() == null : this.getAdjustTime().equals(other.getAdjustTime()));
+                && (this.getExperimentId() == null ? other.getExperimentId() == null : this.getExperimentId().equals(other.getExperimentId()))
+                && (this.getOldValue() == null ? other.getOldValue() == null : this.getOldValue().equals(other.getOldValue()))
+                && (this.getPsoValue() == null ? other.getPsoValue() == null : this.getPsoValue().equals(other.getPsoValue()))
+                && (this.getManualValue() == null ? other.getManualValue() == null : this.getManualValue().equals(other.getManualValue()))
+                && (this.getAdjustTime() == null ? other.getAdjustTime() == null : this.getAdjustTime().equals(other.getAdjustTime()));
     }
 
     @Override
