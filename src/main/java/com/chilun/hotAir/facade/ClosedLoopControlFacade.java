@@ -1,5 +1,7 @@
 package com.chilun.hotAir.facade;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chilun.hotAir.Utils.ExperimentUtils;
 import com.chilun.hotAir.Utils.JsonUtils;
 import com.chilun.hotAir.Utils.ThrowUtils;
@@ -19,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 import static com.chilun.hotAir.exception.ErrorCode.PARAMS_ERROR;
@@ -138,7 +141,15 @@ public class ClosedLoopControlFacade {
 
     //查询系统提供建议的可调整参数
     public MachineAdjustableParam getSuggest(ExperimentContext context) {
-        return null;
+        //先获得原型数据，如果context中有manual，就是manual；否则有pso就是pso；否则是old
+        Deque<ExperimentData> oldCache = context.getManualDataCache();
+        if (Objects.isNull(oldCache)) {
+            oldCache = context.getPsoDataCache();
+        }
+        if (Objects.isNull(oldCache)) {
+            oldCache = context.getOldDataCache();
+        }
+        return psoAccessService.getBetterParameter(ExperimentUtils.getTCNInParam(oldCache));
     }
 
     //设置机器的可调整参数
@@ -192,19 +203,44 @@ public class ClosedLoopControlFacade {
         ThrowUtils.throwIf(!saved, SYSTEM_ERROR, "保存实验参数的修改失败");
     }
 
-    //查询系统当前时间步下的参数信息，包含TCN出参
-    public Map<String, Object> getCurrentInfo() {
-        return null;
+    //查询系统当前时间步下应该显示的参数信息
+    public ExperimentDataRecord getCurrentInfo(ExperimentContext context) {
+        //先获得原型数据，如果context中有manual，就是manual；否则有pso就是pso；否则是old
+        Deque<ExperimentData> oldCache = context.getManualDataCache();
+
+        ExperimentDataRecord record = new ExperimentDataRecord();
+        record.setExperimentId(context.getExperimentId());
+        record.setDataTime(context.getTime());
+        record.setListType(1);
+        if (Objects.isNull(oldCache)) {
+            oldCache = context.getPsoDataCache();
+            record.setListType(2);
+        }
+        if (Objects.isNull(oldCache)) {
+            oldCache = context.getOldDataCache();
+            record.setListType(0);
+        }
+        BeanUtils.copyProperties(oldCache.peekLast(), record);
+        return record;
     }
 
-    //查询系统历史信息，提供current-length~current-1这段时间的时间序列数据，格式类似模型训练数据集
-    public Map<String, Object> getHistoryInfo(int length) {
-        return null;
+    //查询系统历史信息，提供begin~end这段时间的时间序列数据
+    public List<ExperimentDataRecord> getHistoryInfo(ExperimentContext context, LocalTime begin, LocalTime end) {
+        long experimentId = context.getExperimentId();
+        BaseMapper<ExperimentDataRecord> baseMapper = experimentDataRecordService.getBaseMapper();
+        QueryWrapper<ExperimentDataRecord> wrapper = new QueryWrapper<>();
+        wrapper.eq("experiment_id", experimentId);
+        wrapper.between("data_time", begin, end);
+        wrapper.orderByAsc("data_time");
+        return baseMapper.selectList(wrapper);
     }
 
     //本次模拟结束并存档
-    public void end() {
-
+    public void end(ExperimentContext context) {
+        Experiment experiment = experimentService.getById(context.getExperimentId());
+        experiment.setState(2);
+        boolean updated = experimentService.updateById(experiment);
+        ThrowUtils.throwIf(!updated, SYSTEM_ERROR, "保存实验状态为“结束”失败");
     }
 
 }

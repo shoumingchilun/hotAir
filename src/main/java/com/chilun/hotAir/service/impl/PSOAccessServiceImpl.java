@@ -5,6 +5,7 @@ import com.chilun.hotAir.model.TCNInParam;
 import com.chilun.hotAir.service.PSOAccessService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -14,7 +15,13 @@ import java.util.List;
 @Service
 public class PSOAccessServiceImpl implements PSOAccessService {
     @Override
-    public List<MachineAdjustableParam> getBetterParameter(List<TCNInParam> inParamList) {
-        return List.of();
+    public MachineAdjustableParam getBetterParameter(List<TCNInParam> inParamList) {
+        MachineAdjustableParam param = new MachineAdjustableParam();
+        param.setCirculationFanFreq(BigDecimal.valueOf(50));
+        param.setHotAirTemp(BigDecimal.valueOf(70));
+        param.setExhaustFanFreq(BigDecimal.valueOf(50));
+        param.setSteamPressure(BigDecimal.valueOf(70));
+        param.setSteamValveOpening(BigDecimal.valueOf(70));
+        return param;
     }
 }
