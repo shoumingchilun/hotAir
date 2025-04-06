@@ -203,14 +203,14 @@ public class ClosedLoopControlFacade {
         ThrowUtils.throwIf(!saved, SYSTEM_ERROR, "保存实验参数的修改失败");
     }
 
-    //查询系统当前时间步下应该显示的参数信息
+    //查询系统当前时间步-1下应该显示的参数信息
     public ExperimentDataRecord getCurrentInfo(ExperimentContext context) {
         //先获得原型数据，如果context中有manual，就是manual；否则有pso就是pso；否则是old
         Deque<ExperimentData> oldCache = context.getManualDataCache();
 
         ExperimentDataRecord record = new ExperimentDataRecord();
         record.setExperimentId(context.getExperimentId());
-        record.setDataTime(context.getTime());
+        record.setDataTime(context.getTime().plusSeconds(-1));
         record.setListType(1);
         if (Objects.isNull(oldCache)) {
             oldCache = context.getPsoDataCache();
@@ -220,7 +220,8 @@ public class ClosedLoopControlFacade {
             oldCache = context.getOldDataCache();
             record.setListType(0);
         }
-        BeanUtils.copyProperties(oldCache.peekLast(), record);
+        ExperimentData secondLast = ExperimentUtils.getSecondLast(oldCache);
+        BeanUtils.copyProperties(secondLast, record);
         return record;
     }
 
