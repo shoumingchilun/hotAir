@@ -15,5 +15,5 @@ public class TCNCommonConstant {
 
     //模型服务URL
 //    public static String MODEL_URL = "http://127.0.0.1:8000/";
-    public static String MODEL_URL = " http://127.0.0.1:4523/m1/3007388-0-default/";
+    public static String MODEL_URL = "http://127.0.0.1:4523/m1/6226598-0-default/";
 }
