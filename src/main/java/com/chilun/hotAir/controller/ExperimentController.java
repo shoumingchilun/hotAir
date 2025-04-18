@@ -3,6 +3,7 @@ package com.chilun.hotAir.controller;
 import com.chilun.hotAir.Utils.ResultUtils;
 import com.chilun.hotAir.facade.ClosedLoopControlFacade;
 import com.chilun.hotAir.model.MachineAdjustableParam;
+import com.chilun.hotAir.model.ModelHyperParam;
 import com.chilun.hotAir.model.SystemInitParam;
 import com.chilun.hotAir.model.context.ExperimentContext;
 import com.chilun.hotAir.model.dto.BaseResponse;
@@ -10,6 +11,7 @@ import com.chilun.hotAir.model.dto.experiment.ExperimentAdjustRecordRequest;
 import com.chilun.hotAir.model.entity.ExperimentDataRecord;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -52,6 +54,8 @@ public class ExperimentController {
         return ResultUtils.success(null);
     }
 
+    //TODO: 补充调整环境参数接口
+
     @PostMapping("/end")
     @Operation(summary = "结束实验")
     public BaseResponse<Void> end(HttpSession session) {
@@ -81,5 +85,14 @@ public class ExperimentController {
         LocalTime endTime = LocalTime.parse(end);
         ExperimentContext context = (ExperimentContext) session.getAttribute("context");
         return ResultUtils.success(facade.getHistoryInfo(context, startTime, endTime));
+    }
+
+    @PostMapping("/config")
+    @Operation(summary = "更改设置")
+    public BaseResponse<Void> config(HttpSession session, @RequestBody ModelHyperParam modelHyperParam) {
+        ExperimentContext context = (ExperimentContext) session.getAttribute("context");
+        ModelHyperParam currentParam = context.getModelHyperParam();
+        BeanUtils.copyProperties(modelHyperParam, currentParam);
+        return ResultUtils.success(null);
     }
 }

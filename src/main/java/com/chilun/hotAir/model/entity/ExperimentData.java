@@ -43,11 +43,6 @@ public class ExperimentData implements Serializable {
     private BigDecimal inletMoisture;
 
     /**
-     * 出口物料水份（%）
-     */
-    private BigDecimal outletMoisture;
-
-    /**
      * 烟丝瞬时流量
      */
     private BigDecimal tobaccoFlow;
@@ -98,11 +93,6 @@ public class ExperimentData implements Serializable {
     private BigDecimal actualHotAirTemp;
 
     /**
-     * 排潮开度实际值
-     */
-    private BigDecimal exhaustOpeningActual;
-
-    /**
      * 环境温度
      */
     private BigDecimal envTemp;
@@ -121,7 +111,6 @@ public class ExperimentData implements Serializable {
                 ", batchNumber='" + batchNumber + '\'' +
                 ", dataTime=" + dataTime +
                 ", inletMoisture=" + inletMoisture +
-                ", outletMoisture=" + outletMoisture +
                 ", tobaccoFlow=" + tobaccoFlow +
                 ", dryHeadWeight=" + dryHeadWeight +
                 ", dryTailWeight=" + dryTailWeight +
@@ -132,7 +121,6 @@ public class ExperimentData implements Serializable {
                 ", steamValveOpening=" + steamValveOpening +
                 ", outletMoistureFeedback=" + outletMoistureFeedback +
                 ", actualHotAirTemp=" + actualHotAirTemp +
-                ", exhaustOpeningActual=" + exhaustOpeningActual +
                 ", envTemp=" + envTemp +
                 ", envHumidity=" + envHumidity +
                 '}';
@@ -141,12 +129,12 @@ public class ExperimentData implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ExperimentData that)) return false;
-        return Objects.equals(brand, that.brand) && Objects.equals(batchNumber, that.batchNumber) && Objects.equals(dataTime, that.dataTime) && Objects.equals(inletMoisture, that.inletMoisture) && Objects.equals(outletMoisture, that.outletMoisture) && Objects.equals(tobaccoFlow, that.tobaccoFlow) && Objects.equals(dryHeadWeight, that.dryHeadWeight) && Objects.equals(dryTailWeight, that.dryTailWeight) && Objects.equals(steamPressure, that.steamPressure) && Objects.equals(hotAirTemp, that.hotAirTemp) && Objects.equals(exhaustFanFreq, that.exhaustFanFreq) && Objects.equals(circulationFanFreq, that.circulationFanFreq) && Objects.equals(steamValveOpening, that.steamValveOpening) && Objects.equals(outletMoistureFeedback, that.outletMoistureFeedback) && Objects.equals(actualHotAirTemp, that.actualHotAirTemp) && Objects.equals(exhaustOpeningActual, that.exhaustOpeningActual) && Objects.equals(envTemp, that.envTemp) && Objects.equals(envHumidity, that.envHumidity);
+        return Objects.equals(brand, that.brand) && Objects.equals(batchNumber, that.batchNumber) && Objects.equals(dataTime, that.dataTime) && Objects.equals(inletMoisture, that.inletMoisture) && Objects.equals(tobaccoFlow, that.tobaccoFlow) && Objects.equals(dryHeadWeight, that.dryHeadWeight) && Objects.equals(dryTailWeight, that.dryTailWeight) && Objects.equals(steamPressure, that.steamPressure) && Objects.equals(hotAirTemp, that.hotAirTemp) && Objects.equals(exhaustFanFreq, that.exhaustFanFreq) && Objects.equals(circulationFanFreq, that.circulationFanFreq) && Objects.equals(steamValveOpening, that.steamValveOpening) && Objects.equals(outletMoistureFeedback, that.outletMoistureFeedback) && Objects.equals(actualHotAirTemp, that.actualHotAirTemp) &&  Objects.equals(envTemp, that.envTemp) && Objects.equals(envHumidity, that.envHumidity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, batchNumber, dataTime, inletMoisture, outletMoisture, tobaccoFlow, dryHeadWeight, dryTailWeight, steamPressure, hotAirTemp, exhaustFanFreq, circulationFanFreq, steamValveOpening, outletMoistureFeedback, actualHotAirTemp, exhaustOpeningActual, envTemp, envHumidity);
+        return Objects.hash(brand, batchNumber, dataTime, inletMoisture, tobaccoFlow, dryHeadWeight, dryTailWeight, steamPressure, hotAirTemp, exhaustFanFreq, circulationFanFreq, steamValveOpening, outletMoistureFeedback, actualHotAirTemp, envTemp, envHumidity);
     }
 
     public void fill(TCNOutParam outParam) {

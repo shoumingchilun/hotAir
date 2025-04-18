@@ -50,11 +50,6 @@ public class ExperimentDataRecord implements Serializable {
     private BigDecimal inletMoisture;
 
     /**
-     * 出口物料水份（%）
-     */
-    private BigDecimal outletMoisture;
-
-    /**
      * 烟丝瞬时流量
      */
     private BigDecimal tobaccoFlow;
@@ -105,11 +100,6 @@ public class ExperimentDataRecord implements Serializable {
     private BigDecimal actualHotAirTemp;
 
     /**
-     * 排潮开度实际值
-     */
-    private BigDecimal exhaustOpeningActual;
-
-    /**
      * 环境温度
      */
     private BigDecimal envTemp;
@@ -145,7 +135,6 @@ public class ExperimentDataRecord implements Serializable {
             && (this.getBatchNumber() == null ? other.getBatchNumber() == null : this.getBatchNumber().equals(other.getBatchNumber()))
             && (this.getDataTime() == null ? other.getDataTime() == null : this.getDataTime().equals(other.getDataTime()))
             && (this.getInletMoisture() == null ? other.getInletMoisture() == null : this.getInletMoisture().equals(other.getInletMoisture()))
-            && (this.getOutletMoisture() == null ? other.getOutletMoisture() == null : this.getOutletMoisture().equals(other.getOutletMoisture()))
             && (this.getTobaccoFlow() == null ? other.getTobaccoFlow() == null : this.getTobaccoFlow().equals(other.getTobaccoFlow()))
             && (this.getDryHeadWeight() == null ? other.getDryHeadWeight() == null : this.getDryHeadWeight().equals(other.getDryHeadWeight()))
             && (this.getDryTailWeight() == null ? other.getDryTailWeight() == null : this.getDryTailWeight().equals(other.getDryTailWeight()))
@@ -156,7 +145,6 @@ public class ExperimentDataRecord implements Serializable {
             && (this.getSteamValveOpening() == null ? other.getSteamValveOpening() == null : this.getSteamValveOpening().equals(other.getSteamValveOpening()))
             && (this.getOutletMoistureFeedback() == null ? other.getOutletMoistureFeedback() == null : this.getOutletMoistureFeedback().equals(other.getOutletMoistureFeedback()))
             && (this.getActualHotAirTemp() == null ? other.getActualHotAirTemp() == null : this.getActualHotAirTemp().equals(other.getActualHotAirTemp()))
-            && (this.getExhaustOpeningActual() == null ? other.getExhaustOpeningActual() == null : this.getExhaustOpeningActual().equals(other.getExhaustOpeningActual()))
             && (this.getEnvTemp() == null ? other.getEnvTemp() == null : this.getEnvTemp().equals(other.getEnvTemp()))
             && (this.getEnvHumidity() == null ? other.getEnvHumidity() == null : this.getEnvHumidity().equals(other.getEnvHumidity()))
             && (this.getListType() == null ? other.getListType() == null : this.getListType().equals(other.getListType()));
@@ -172,7 +160,6 @@ public class ExperimentDataRecord implements Serializable {
         result = prime * result + ((getBatchNumber() == null) ? 0 : getBatchNumber().hashCode());
         result = prime * result + ((getDataTime() == null) ? 0 : getDataTime().hashCode());
         result = prime * result + ((getInletMoisture() == null) ? 0 : getInletMoisture().hashCode());
-        result = prime * result + ((getOutletMoisture() == null) ? 0 : getOutletMoisture().hashCode());
         result = prime * result + ((getTobaccoFlow() == null) ? 0 : getTobaccoFlow().hashCode());
         result = prime * result + ((getDryHeadWeight() == null) ? 0 : getDryHeadWeight().hashCode());
         result = prime * result + ((getDryTailWeight() == null) ? 0 : getDryTailWeight().hashCode());
@@ -183,7 +170,6 @@ public class ExperimentDataRecord implements Serializable {
         result = prime * result + ((getSteamValveOpening() == null) ? 0 : getSteamValveOpening().hashCode());
         result = prime * result + ((getOutletMoistureFeedback() == null) ? 0 : getOutletMoistureFeedback().hashCode());
         result = prime * result + ((getActualHotAirTemp() == null) ? 0 : getActualHotAirTemp().hashCode());
-        result = prime * result + ((getExhaustOpeningActual() == null) ? 0 : getExhaustOpeningActual().hashCode());
         result = prime * result + ((getEnvTemp() == null) ? 0 : getEnvTemp().hashCode());
         result = prime * result + ((getEnvHumidity() == null) ? 0 : getEnvHumidity().hashCode());
         result = prime * result + ((getListType() == null) ? 0 : getListType().hashCode());
@@ -202,7 +188,6 @@ public class ExperimentDataRecord implements Serializable {
         sb.append(", batchNumber=").append(batchNumber);
         sb.append(", dataTime=").append(dataTime);
         sb.append(", inletMoisture=").append(inletMoisture);
-        sb.append(", outletMoisture=").append(outletMoisture);
         sb.append(", tobaccoFlow=").append(tobaccoFlow);
         sb.append(", dryHeadWeight=").append(dryHeadWeight);
         sb.append(", dryTailWeight=").append(dryTailWeight);
@@ -213,7 +198,6 @@ public class ExperimentDataRecord implements Serializable {
         sb.append(", steamValveOpening=").append(steamValveOpening);
         sb.append(", outletMoistureFeedback=").append(outletMoistureFeedback);
         sb.append(", actualHotAirTemp=").append(actualHotAirTemp);
-        sb.append(", exhaustOpeningActual=").append(exhaustOpeningActual);
         sb.append(", envTemp=").append(envTemp);
         sb.append(", envHumidity=").append(envHumidity);
         sb.append(", listType=").append(listType);

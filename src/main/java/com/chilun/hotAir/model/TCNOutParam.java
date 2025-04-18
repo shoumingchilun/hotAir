@@ -13,21 +13,12 @@ import java.math.BigDecimal;
 @Data
 public class TCNOutParam {
     /**
-     * 出口物料水份（%）
-     */
-    private BigDecimal outletMoisture;
-    /**
      * 出口水分仪反馈值
      */
     private BigDecimal outletMoistureFeedback;
 
     /**
-     * 热风实际温度
+     * 出口温度
      */
     private BigDecimal actualHotAirTemp;
-
-    /**
-     * 排潮开度实际值
-     */
-    private BigDecimal exhaustOpeningActual;
 }
