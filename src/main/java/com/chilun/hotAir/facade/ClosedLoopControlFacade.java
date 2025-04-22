@@ -7,6 +7,7 @@ import com.chilun.hotAir.Utils.JsonUtils;
 import com.chilun.hotAir.Utils.ThrowUtils;
 import com.chilun.hotAir.constant.TCNCommonConstant;
 import com.chilun.hotAir.model.MachineAdjustableParam;
+import com.chilun.hotAir.model.ModelHyperParam;
 import com.chilun.hotAir.model.SystemInitParam;
 import com.chilun.hotAir.model.TCNOutParam;
 import com.chilun.hotAir.model.context.ExperimentContext;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+import static com.chilun.hotAir.constant.TCNCommonConstant.SEQUENCE_LENGTH;
 import static com.chilun.hotAir.exception.ErrorCode.PARAMS_ERROR;
 import static com.chilun.hotAir.exception.ErrorCode.SYSTEM_ERROR;
 
@@ -59,10 +61,8 @@ public class ClosedLoopControlFacade {
         ThrowUtils.throwIf(Objects.isNull(initParam.getModelHyperParam()), PARAMS_ERROR, "模型超参数异常");
         experimentContext.setModelHyperParam(initParam.getModelHyperParam());
 
-        //TODO: 此处可以优化为使用尾部数据填充指所需长度，也可以补充默认配置
-        List<ExperimentData> experimentDataList = initParam.getSystemInitParam();
-//        ThrowUtils.throwIf(CollectionUtils.isEmpty(experimentDataList) ||
-//                experimentDataList.size() < TCNCommonConstant.SEQUENCE_LENGTH, PARAMS_ERROR, "模型预测入参异常");
+        //使用全部数据等比填充至所需长度
+        List<ExperimentData> experimentDataList = ExperimentUtils.expandToLength(initParam.getSystemInitParam(), SEQUENCE_LENGTH);
         experimentContext.setOldDataCache(new ArrayDeque<>(experimentDataList));
 
         Experiment experiment = new Experiment();
@@ -149,12 +149,12 @@ public class ClosedLoopControlFacade {
         if (Objects.isNull(oldCache)) {
             oldCache = context.getOldDataCache();
         }
-        return psoAccessService.getBetterParameter(ExperimentUtils.getTCNInParam(oldCache));
+        ModelHyperParam hyperParam = context.getModelHyperParam();
+        return psoAccessService.getBetterParameterWithDetail(ExperimentUtils.getTCNInParam(oldCache), hyperParam);
     }
 
     //设置机器的可调整参数
-    public void setMachineAdjustableParam(MachineAdjustableParam psoParam,
-                                          MachineAdjustableParam manualParam, ExperimentContext context) {
+    public void setMachineAdjustableParam(MachineAdjustableParam psoParam, MachineAdjustableParam manualParam, ExperimentContext context) {
         //先获得原型数据，如果context中有manual，就是manual；否则有pso就是pso；否则是old
         Deque<ExperimentData> oldCache = context.getManualDataCache();
         if (Objects.isNull(oldCache)) {
@@ -232,6 +232,7 @@ public class ClosedLoopControlFacade {
         QueryWrapper<ExperimentDataRecord> wrapper = new QueryWrapper<>();
         wrapper.eq("experiment_id", experimentId);
         wrapper.between("data_time", begin, end);
+        wrapper.orderByAsc("list_type");
         wrapper.orderByAsc("data_time");
         return baseMapper.selectList(wrapper);
     }

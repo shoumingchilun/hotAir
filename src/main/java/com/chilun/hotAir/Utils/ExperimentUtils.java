@@ -3,7 +3,9 @@ package com.chilun.hotAir.Utils;
 import com.chilun.hotAir.model.TCNInParam;
 import com.chilun.hotAir.model.TCNOutParam;
 import com.chilun.hotAir.model.entity.ExperimentData;
+import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
@@ -31,4 +33,28 @@ public class ExperimentUtils {
 
         return secondLast;
     }
+
+    public static List<ExperimentData> expandToLength(List<ExperimentData> originalList, int targetSize) {
+        int n = originalList.size();
+        if (n == 0 || n > targetSize) {
+            throw new IllegalArgumentException("Original list size must be between 1 and targetSize - 1");
+        }
+
+        int baseRepeat = targetSize / n;
+        int extra = targetSize % n;
+
+        List<ExperimentData> result = new ArrayList<>(targetSize);
+        for (int i = 0; i < n; i++) {
+            int repeatCount = baseRepeat + (i < extra ? 1 : 0);
+            for (int j = 0; j < repeatCount; j++) {
+                ExperimentData data = originalList.get(i);
+                ExperimentData newData = new ExperimentData();
+                BeanUtils.copyProperties(data, newData);
+                result.add(newData);
+            }
+        }
+
+        return result;
+    }
+
 }
