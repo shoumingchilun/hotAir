@@ -22,15 +22,6 @@ import static com.chilun.hotAir.constant.TCNCommonConstant.MODEL_URL;
 
 @Service
 public class TCNAccessServiceImpl implements TCNAccessService {
-//    @Override
-//    public TCNOutParam getNextOutParameterMock(List<TCNInParam> inParamList) {
-//        TCNOutParam param = new TCNOutParam();
-//        param.setActualHotAirTemp(BigDecimal.valueOf(100));
-//        param.setOutletMoisture(BigDecimal.valueOf(100));
-//        param.setOutletMoistureFeedback(BigDecimal.valueOf(100));
-//        param.setExhaustOpeningActual(BigDecimal.valueOf(100));
-//        return param;
-//    }
 
     @Override
     public TCNOutParam getNextOutParameter(List<TCNInParam> inParamList) {
@@ -38,10 +29,5 @@ public class TCNAccessServiceImpl implements TCNAccessService {
         map.put("input_data", inParamList);
         String body = OkHttpUtils.getPostBody(MODEL_URL + "predict", map);
         return JsonUtils.fromJson(body,TCNOutParam.class);
-    }
-
-    @Override
-    public List<TCNOutParam> getPredictOutParameter(List<TCNInParam> inParamList) {
-        return List.of();
     }
 }
