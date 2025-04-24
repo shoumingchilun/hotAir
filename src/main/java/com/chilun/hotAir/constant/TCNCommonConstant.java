@@ -8,12 +8,12 @@ package com.chilun.hotAir.constant;
  */
 public class TCNCommonConstant {
     //预测出参所需的入参时间序列长度
-    public static int SEQUENCE_LENGTH = 150;
+    public static int SEQUENCE_LENGTH = 300;
 
     //预测出参时间序列长度
-    public static int PREDICTION_STEPS = 60;
+    public static int PREDICTION_STEPS = 1;
 
     //模型服务URL
-//    public static String MODEL_URL = "http://127.0.0.1:8000/";
-    public static String MODEL_URL = "http://127.0.0.1:4523/m1/6226598-0-default/";
+    public static String MODEL_URL = "http://127.0.0.1:8000/";
+//    public static String MODEL_URL = "http://127.0.0.1:4523/m1/6226598-0-default/";
 }

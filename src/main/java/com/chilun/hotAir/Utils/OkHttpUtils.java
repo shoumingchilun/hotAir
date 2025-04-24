@@ -5,13 +5,25 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 齿轮
  * @date 2025-03-24-0:03
  */
 public class OkHttpUtils {
-    static OkHttpClient client = new OkHttpClient();
+
+    // Define timeout constants (good practice for configurability)
+    private static final long CONNECT_TIMEOUT = 10; // Connection timeout in seconds
+    private static final long READ_TIMEOUT = 120;    // Read timeout in seconds
+    private static final long WRITE_TIMEOUT = 120;   // Write timeout in seconds
+    private static final TimeUnit TIMEOUT_UNIT = TimeUnit.SECONDS; // Unit for timeouts
+    static OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(CONNECT_TIMEOUT, TIMEOUT_UNIT) // Set connection timeout
+            .readTimeout(READ_TIMEOUT, TIMEOUT_UNIT)       // Set read timeout
+            .writeTimeout(WRITE_TIMEOUT, TIMEOUT_UNIT)      // Set write timeout
+            // You can add other configurations here (e.g., connection pool, interceptors)
+            .build();
 
     public static String getPostBody(String url, Object jsonObject) {
         // 1. 创建 OkHttpClient 实例

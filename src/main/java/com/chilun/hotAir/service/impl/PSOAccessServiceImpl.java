@@ -44,9 +44,10 @@ public class PSOAccessServiceImpl implements PSOAccessService {
     @Override
     public MachineAdjustableParam getBetterParameterWithDetail(List<TCNInParam> inParamList, ModelHyperParam modelHyperParam) {
         Map<String, Object> map = new HashMap<>();
-        map.put("input_data", inParamList);
+        map.put("history_data", inParamList);
+        map.put("optimization_horizon", 150);
         map.put("hyper_param", modelHyperParam);
-        String body = OkHttpUtils.getPostBody(MODEL_URL + "optimize_parameters", map);
+        String body = OkHttpUtils.getPostBody(MODEL_URL + "optimize", map);
         return JsonUtils.fromJson(body, MachineAdjustableParam.class);
     }
 }
